@@ -130,14 +130,14 @@ _mcp_req_id: int = 0
 
 
 def _mcp_post(payload: dict) -> dict:
-    """向 Ombre Brain /mcp 发 JSON-RPC 请求。"""
+    """向 Ombre Brain /mcp 发 JSON-RPC 请求，处理 JSON 或 SSE 响应。"""
     global _mcp_session_id, _mcp_req_id
     _mcp_req_id += 1
     payload["jsonrpc"] = "2.0"
     payload["id"] = _mcp_req_id
 
     data = json.dumps(payload, ensure_ascii=False).encode("utf-8")
-    headers = {"Content-Type": "application/json", "Accept": "application/json"}
+    headers = {"Content-Type": "application/json", "Accept": "application/json, text/event-stream"}
     if OMBRE_MCP_TOKEN:
         headers["Authorization"] = f"Bearer {OMBRE_MCP_TOKEN}"
     if _mcp_session_id:
@@ -149,7 +149,29 @@ def _mcp_post(payload: dict) -> dict:
         sid = r.headers.get("Mcp-Session-Id")
         if sid:
             _mcp_session_id = sid
-        return json.loads(r.read().decode("utf-8"))
+
+        content_type = r.headers.get("Content-Type", "")
+        body = r.read().decode("utf-8")
+
+        # 纯 JSON 响应
+        if "application/json" in content_type:
+            return json.loads(body)
+
+        # SSE 响应：提取 data: 行里的 JSON
+        if "text/event-stream" in content_type or body.startswith("event:") or body.startswith("data:"):
+            for line in body.splitlines():
+                if line.startswith("data:"):
+                    json_str = line[5:].strip()
+                    if json_str:
+                        try:
+                            return json.loads(json_str)
+                        except json.JSONDecodeError:
+                            continue
+            # fallback: 尝试整体解析
+            return json.loads(body)
+
+        # 未知格式，尝试直接解析
+        return json.loads(body)
 
 
 def mcp_init() -> None:
