@@ -5042,7 +5042,15 @@ if ("serviceWorker" in navigator){
   window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
 }
 
-init();
+  init();
+
+  // 修复移动端键盘遮挡输入框
+  document.getElementById('input').addEventListener('focus', () => {
+    setTimeout(() => {
+      document.getElementById('input').scrollIntoView({ block: 'center', behavior: 'smooth' });
+    }, 350);
+  });
+
 </script>
 
 </body>
