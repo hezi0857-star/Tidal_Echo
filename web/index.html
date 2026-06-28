@@ -5045,18 +5045,20 @@ if ("serviceWorker" in navigator){
   init();
 
   // 修复移动端键盘遮挡
-  if (window.visualViewport) {
-    const scroll = document.querySelector('.scroll');
+ if (window.visualViewport) {
+  const scroll = document.querySelector('.scroll');
+  
+  window.visualViewport.addEventListener('resize', () => {
+    const keyboardH = window.innerHeight - window.visualViewport.height;
+    document.body.style.height = window.visualViewport.height + 'px';
     
-    window.visualViewport.addEventListener('resize', () => {
-      const keyboardH = window.innerHeight - window.visualViewport.height;
-      document.body.style.height = window.visualViewport.height + 'px';
-      
-      if (keyboardH > 100 && scroll) {
-        setTimeout(() => { scroll.scrollTop = scroll.scrollHeight; }, 50);
-      }
-    });
-  }
+    if (keyboardH > 100 && scroll) {
+      scroll.scrollTop = scroll.scrollHeight;
+      setTimeout(() => { scroll.scrollTop = scroll.scrollHeight; }, 100);
+      setTimeout(() => { scroll.scrollTop = scroll.scrollHeight; }, 300);
+    }
+  });
+}
 
 </script>
 
