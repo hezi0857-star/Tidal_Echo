@@ -287,10 +287,6 @@ def relay_post_json(path: str, body: dict):
 
 def send_reply(text: str) -> None:
     """AI 的回复 → 落库 + 扇出到 PWA。"""
-    log("debug", f"send_reply text={repr(text)}")
-    if not text or not text.strip():
-        log("warn", "send_reply called with empty text, skipping")
-        return
     out = relay_post_json("/channel/out", {
         "type":    "reply",
         "chat_id": CHAT_ID,
