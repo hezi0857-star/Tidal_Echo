@@ -466,7 +466,15 @@ def call_llm(messages: list) -> str:
 # 一条消息的处理
 # ———————————————————————————
 
+    _seen_ids = set()
+
 def handle_human_message(msg: dict) -> None:
+    msg_id = msg.get("id")
+    if msg_id and msg_id in _seen_ids:
+        return  # 已处理过，跳过
+    if msg_id:
+        _seen_ids.add(msg_id)
+        
     content = (msg.get("content") or "").strip()
     atts = msg.get("attachments") or []
     if atts:
