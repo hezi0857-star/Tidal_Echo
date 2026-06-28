@@ -5044,13 +5044,19 @@ if ("serviceWorker" in navigator){
 
   init();
 
-  // 修复移动端键盘遮挡输入框
-document.getElementById('input').addEventListener('focus', () => {
-  setTimeout(() => {
+  // 修复移动端键盘遮挡
+  if (window.visualViewport) {
     const scroll = document.querySelector('.scroll');
-    if (scroll) scroll.scrollTop = scroll.scrollHeight;
-  }, 350);
-});
+    
+    window.visualViewport.addEventListener('resize', () => {
+      const keyboardH = window.innerHeight - window.visualViewport.height;
+      document.body.style.height = window.visualViewport.height + 'px';
+      
+      if (keyboardH > 100 && scroll) {
+        setTimeout(() => { scroll.scrollTop = scroll.scrollHeight; }, 50);
+      }
+    });
+  }
 
 </script>
 
