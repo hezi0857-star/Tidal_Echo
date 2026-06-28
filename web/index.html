@@ -5014,6 +5014,7 @@ document.addEventListener("visibilitychange", () => {
 });
 
 /* 键盘 / 安全区:只移动输入栏和消息区,不改整体页面高度。 */
+js
 if (window.visualViewport){
   const vv = window.visualViewport;
   const applyVV = () => {
@@ -5026,6 +5027,10 @@ if (window.visualViewport){
       scrollToBottom({ smooth: true });
       setTimeout(() => scrollToBottom({ smooth: true }), 90);
       setTimeout(() => scrollToBottom(), 320);
+      setTimeout(() => scrollToBottom(), 600);
+      setTimeout(() => scrollToBottom(), 1000);
+      setTimeout(() => scrollToBottom(), 1500);
+      setTimeout(() => scrollToBottom(), 2000);
     } else if (nearBottom()) scrollToBottom();
   };
   let vvTimer;
@@ -5043,63 +5048,6 @@ if ("serviceWorker" in navigator){
 }
 
   init();
-
-  // 临时测试按钮，确认后删除
-document.body.insertAdjacentHTML('beforeend', 
-  '<button onclick="document.querySelector(\'.scroll\').scrollTop=document.querySelector(\'.scroll\').scrollHeight" style="position:fixed;top:10px;left:10px;z-index:99999;padding:12px;background:red;color:#fff;border:none;border-radius:8px;">滚到底</button>'
-);
-
-  ```js
-const scroll = document.querySelector('#scroll');
-const input = document.querySelector('#input');
-
-if (input && scroll) {
-  input.addEventListener('focus', () => {
-    alert('触发了');
-  });
-}
-```
-
-```js
-const scroll = document.querySelector('#scroll');
-
-  let lastH = window.visualViewport.height;
-  
-  window.visualViewport.addEventListener('resize', () => {
-    const vpH = window.visualViewport.height;
-    document.body.style.height = vpH + 'px';
-    
-    if (vpH < lastH && scroll) {
-      setTimeout(() => { scroll.scrollTop = scroll.scrollHeight; }, 300);
-      setTimeout(() => { scroll.scrollTop = scroll.scrollHeight; }, 600);
-      setTimeout(() => { scroll.scrollTop = scroll.scrollHeight; }, 1000);
-      setTimeout(() => { scroll.scrollTop = scroll.scrollHeight; }, 1500);
-    }
-    
-    lastH = vpH;
-  });
-}
-```
-
-```js
-const scroll = document.querySelector('#scroll');
-const input = document.querySelector('textarea');
-
-if (input && scroll) {
-  let timer = null;
-  
-  input.addEventListener('focus', () => {
-    timer = setInterval(() => {
-      scroll.scrollTop = scroll.scrollHeight;
-    }, 50);
-    
-    setTimeout(() => {
-      clearInterval(timer);
-    }, 3000);
-  });
-}
-```
-
 </script>
 
 </body>
