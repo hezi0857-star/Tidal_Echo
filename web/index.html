@@ -5049,6 +5049,16 @@ document.body.insertAdjacentHTML('beforeend',
   '<button onclick="document.querySelector(\'.scroll\').scrollTop=document.querySelector(\'.scroll\').scrollHeight" style="position:fixed;top:10px;left:10px;z-index:99999;padding:12px;background:red;color:#fff;border:none;border-radius:8px;">滚到底</button>'
 );
 
+  ```js
+const scroll = document.querySelector('#scroll');
+const input = document.querySelector('textarea');
+
+if (input && scroll) {
+  input.addEventListener('focus', () => {
+    alert('触发了');
+  });
+}
+```
 
 ```js
 const scroll = document.querySelector('#scroll');
