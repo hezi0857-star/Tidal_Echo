@@ -5042,6 +5042,13 @@ if (window.visualViewport){
   setTimeout(() => scrollToBottom({ smooth: true }), 800);
   setTimeout(() => scrollToBottom(), 1200);
 });
+  document.addEventListener("visibilitychange", () => {
+  if (!document.hidden && document.activeElement === inputEl) {
+    setTimeout(applyVV, 100);
+    setTimeout(() => scrollToBottom({ smooth: true }), 300);
+    setTimeout(() => scrollToBottom(), 600);
+  }
+});
   inputEl.addEventListener("blur", () => { setTimeout(applyVV, 80); setTimeout(applyVV, 300); });
   inputEl.addEventListener("input", () => { if (document.activeElement === inputEl) applyVV(); });
   applyVV();
