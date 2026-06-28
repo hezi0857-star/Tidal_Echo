@@ -81,6 +81,7 @@ if not PERSONA:
     print(">>> CWD:", os.getcwd())
 print(">>> FILE DIR:", Path(__file__).resolve().parent)
 print(">>> PERSONA_FILE:", repr(_persona_file))
+print(">>> FILE EXISTS:", Path(_persona_file).exists())
 
 # 模型链:主模型 + 可选兜底(LLM_*_2 / _3)。任一返回 FALLBACK_CODES 就顺次切下一个。
 def _model_routes() -> list:
