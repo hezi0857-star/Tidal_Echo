@@ -404,7 +404,6 @@ def _one_call(route: dict, messages: list) -> str:
         msg = choice["message"]
 
         # 没有 tool_calls → 直接返回文本
-        log("llm", f"round={_round} tool_calls={bool(msg.get('tool_calls'))} content={bool(msg.get('content'))}")
         if not msg.get("tool_calls"):
             return (msg.get("content") or "").strip()
 
