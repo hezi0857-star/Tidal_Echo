@@ -5045,11 +5045,10 @@ if ("serviceWorker" in navigator){
   init();
 
   // 修复移动端键盘遮挡输入框
- document.getElementById('input').addEventListener('focus', () => {
+document.getElementById('input').addEventListener('focus', () => {
   setTimeout(() => {
-    const msgs = document.getElementById('messages') || document.querySelector('.messages');
-    if (msgs) msgs.scrollTop = msgs.scrollHeight;
-    document.getElementById('input').scrollIntoView({ block: 'center', behavior: 'smooth' });
+    const scroll = document.querySelector('.scroll');
+    if (scroll) scroll.scrollTop = scroll.scrollHeight;
   }, 350);
 });
 
