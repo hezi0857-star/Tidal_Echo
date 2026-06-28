@@ -5014,17 +5014,20 @@ document.addEventListener("visibilitychange", () => {
 });
 
 /* 键盘 / 安全区:只移动输入栏和消息区,不改整体页面高度。 */
-js
-const applyVV = () => {
+if (window.visualViewport){
+  const vv = window.visualViewport;
+  const applyVV = () => {
     const rawOffset = (window.innerHeight || 0) - (vv.height || 0) - (vv.offsetTop || 0);
     const kbOpen = rawOffset > 80;
     const offset = kbOpen ? Math.max(0, Math.round(rawOffset)) : 0;
     document.documentElement.style.setProperty("--keyboard-offset", offset + "px");
     appEl.classList.toggle("kb", kbOpen);
-    
-    document.title = "kb:" + kbOpen + " raw:" + rawOffset;
-    
     if (kbOpen){
+      scrollToBottom({ smooth: true });
+      setTimeout(() => scrollToBottom({ smooth: true }), 90);
+      setTimeout(() => scrollToBottom(), 320);
+    } else if (nearBottom()) scrollToBottom();
+  };
   let vvTimer;
   vv.addEventListener("resize", () => { applyVV(); clearTimeout(vvTimer); vvTimer = setTimeout(applyVV, 80); setTimeout(applyVV, 350); });
   vv.addEventListener("scroll", applyVV);
