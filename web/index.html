@@ -5044,26 +5044,26 @@ if ("serviceWorker" in navigator){
 
   init();
 
-// 临时测试按钮，确认后删除
-document.body.insertAdjacentHTML('beforeend', 
-  '<button onclick="document.querySelector(\'.scroll\').scrollTop=document.querySelector(\'.scroll\').scrollHeight" style="position:fixed;top:10px;left:10px;z-index:99999;padding:12px;background:red;color:#fff;border:none;border-radius:8px;">滚到底</button>'
-);
-  
-  // 修复移动端键盘遮挡
- if (window.visualViewport) {
+```js
+if (window.visualViewport) {
   const scroll = document.querySelector('.scroll');
+  let lastH = window.visualViewport.height;
   
   window.visualViewport.addEventListener('resize', () => {
-    const keyboardH = window.innerHeight - window.visualViewport.height;
-    document.body.style.height = window.visualViewport.height + 'px';
+    const vpH = window.visualViewport.height;
+    document.body.style.height = vpH + 'px';
     
-    if (keyboardH > 100 && scroll) {
-      scroll.scrollTop = scroll.scrollHeight;
-      setTimeout(() => { scroll.scrollTop = scroll.scrollHeight; }, 100);
+    // 键盘弹起（高度变小了）
+    if (vpH < lastH && scroll) {
+      // 等键盘完全弹起来再滚
       setTimeout(() => { scroll.scrollTop = scroll.scrollHeight; }, 300);
+      setTimeout(() => { scroll.scrollTop = scroll.scrollHeight; }, 600);
     }
+    
+    lastH = vpH;
   });
 }
+```
 
 </script>
 
