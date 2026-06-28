@@ -5053,11 +5053,11 @@ if (window.visualViewport) {
     const vpH = window.visualViewport.height;
     document.body.style.height = vpH + 'px';
     
-    // 键盘弹起（高度变小了）
     if (vpH < lastH && scroll) {
-      // 等键盘完全弹起来再滚
       setTimeout(() => { scroll.scrollTop = scroll.scrollHeight; }, 300);
       setTimeout(() => { scroll.scrollTop = scroll.scrollHeight; }, 600);
+      setTimeout(() => { scroll.scrollTop = scroll.scrollHeight; }, 1000);
+      setTimeout(() => { scroll.scrollTop = scroll.scrollHeight; }, 1500);
     }
     
     lastH = vpH;
