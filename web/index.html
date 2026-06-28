@@ -5033,7 +5033,15 @@ if (window.visualViewport){
   let vvTimer;
   vv.addEventListener("resize", () => { applyVV(); clearTimeout(vvTimer); vvTimer = setTimeout(applyVV, 80); setTimeout(applyVV, 350); });
   vv.addEventListener("scroll", applyVV);
-  inputEl.addEventListener("focus", () => { applyVV(); setTimeout(applyVV, 80); setTimeout(applyVV, 350); setTimeout(applyVV, 600); setTimeout(applyVV, 1000); });
+  inputEl.addEventListener("focus", () => {applyVV();
+  setTimeout(applyVV, 80);
+  setTimeout(applyVV, 350);
+  setTimeout(applyVV, 600);
+  setTimeout(applyVV, 1000);
+  setTimeout(() => scrollToBottom({ smooth: true }), 400);
+  setTimeout(() => scrollToBottom({ smooth: true }), 800);
+  setTimeout(() => scrollToBottom(), 1200);
+});
   inputEl.addEventListener("blur", () => { setTimeout(applyVV, 80); setTimeout(applyVV, 300); });
   inputEl.addEventListener("input", () => { if (document.activeElement === inputEl) applyVV(); });
   applyVV();
