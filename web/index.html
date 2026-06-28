@@ -5042,6 +5042,9 @@ if (window.visualViewport){
   setTimeout(() => scrollToBottom({ smooth: true }), 800);
   setTimeout(() => scrollToBottom(), 1200);
 });
+  inputEl.addEventListener("touchstart", () => {
+  setTimeout(() => scrollToBottom({ smooth: true }), 100);
+});
   document.addEventListener("visibilitychange", () => {
   if (!document.hidden && document.activeElement === inputEl) {
     setTimeout(applyVV, 100);
