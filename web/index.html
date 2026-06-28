@@ -4732,8 +4732,11 @@ inputEl.addEventListener("input", () => {
   sendBtn.classList.remove("hidden");
   micBtn.classList.add("hidden");
 });
+js
+const isMobile = /iPhone|Android/i.test(navigator.userAgent)
+
 inputEl.addEventListener("keydown", (e) => {
-  if (e.key === "Enter" && !e.shiftKey && !composing){
+  if (!isMobile && e.key === "Enter" && !e.shiftKey && !composing){
     e.preventDefault();
     doSend();
   }
