@@ -1,0 +1,39 @@
+# ============================================================
+#  bridge_any_llm.py — 配置模板
+#  cp .env.example .env  并填好。.env 不要提交进 git。
+# ============================================================
+
+# ---- relay(你自己的后端)---------------------------------------
+# 域名 + nginx 的 /relay 前缀;RELAY_SECRET 必须和后端 relay.env 里那把完全一致。
+RELAY_URL=https://your-domain.example/relay
+RELAY_SECRET=
+
+# ---- 你的模型(任选一家「OpenAI 兼容」端点)------------------------
+# 只要填 BASE / KEY / MODEL 三件。常见各家:
+#   OpenAI    BASE=https://api.openai.com/v1                              MODEL=gpt-4o
+#   DeepSeek  BASE=https://api.deepseek.com/v1                            MODEL=deepseek-chat
+#   通义千问   BASE=https://dashscope.aliyuncs.com/compatible-mode/v1       MODEL=qwen-plus
+#   智谱 GLM   BASE=https://open.bigmodel.cn/api/paas/v4                   MODEL=glm-4.6
+#   Kimi      BASE=https://api.moonshot.cn/v1                             MODEL=kimi-k2
+#   Gemini    BASE=https://generativelanguage.googleapis.com/v1beta/openai MODEL=gemini-2.5-pro
+#   本地 vLLM  BASE=http://127.0.0.1:8000/v1                               MODEL=<你的本地模型>
+LLM_API_BASE=
+LLM_API_KEY=
+LLM_MODEL=
+
+# ---- 可选:兜底模型链(主模型 401/403/429/5xx 时顺次切)-------------
+# LLM_API_BASE_2=
+# LLM_API_KEY_2=
+# LLM_MODEL_2=
+
+# ---- 人设(system prompt)----------------------------------------
+# 二选一:直接写 PERSONA,或指向一个文件 PERSONA_FILE(适合长人设)。
+# PERSONA=
+PERSONA_FILE=./persona.md
+
+# ---- 调参(都有默认值,可不填)------------------------------------
+# HISTORY_N=12            # 喂给模型的最近对话条数(太小会显得健忘)
+# LLM_TEMPERATURE=0.7
+# LLM_TIMEOUT=120         # 单次模型请求超时(秒)
+# RELAY_CHAT_ID=me        # 单用户通道固定 me,一般不用改
+# BRIDGE_STATE_DIR=~/.companion-bridge   # 断线重连游标的落点
