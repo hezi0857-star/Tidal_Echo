@@ -5070,17 +5070,23 @@ if (window.visualViewport) {
 }
 ```
 
-  ```js
+ ```js
 const scroll = document.querySelector('.scroll');
 const input = document.querySelector('input');
 
 if (input && scroll) {
+  let timer = null;
+  
   input.addEventListener('focus', () => {
-    setTimeout(() => { scroll.scrollTop = scroll.scrollHeight; }, 500);
-    setTimeout(() => { scroll.scrollTop = scroll.scrollHeight; }, 800);
-    setTimeout(() => { scroll.scrollTop = scroll.scrollHeight; }, 1200);
-    setTimeout(() => { scroll.scrollTop = scroll.scrollHeight; }, 1800);
-    setTimeout(() => { scroll.scrollTop = scroll.scrollHeight; }, 2500);
+    // 持续滚到底，直到键盘不再动
+    timer = setInterval(() => {
+      scroll.scrollTop = scroll.scrollHeight;
+    }, 50);
+    
+    // 3秒后停止
+    setTimeout(() => {
+      clearInterval(timer);
+    }, 3000);
   });
 }
 ```
