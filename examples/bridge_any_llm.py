@@ -478,12 +478,15 @@ def handle_human_message(msg: dict) -> None:
     convo.append({"role": "user", "content": content})
     try:
         reply = call_llm(build_messages())
+         log("debug", f"reply={repr(reply)}")  
     except Exception as e:
         log("err", f"生成失败: {e}")
         return
     if reply:
         convo.append({"role": "assistant", "content": reply})
         send_reply(reply)
+         else:
+        log("warn", "reply 为空，没有发送")  
 
 # ———————————————————————————
 # SSE 入站流:GET /channel/in(断线自动重连)
