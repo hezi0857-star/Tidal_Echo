@@ -5070,6 +5070,21 @@ if (window.visualViewport) {
 }
 ```
 
+  ```js
+const scroll = document.querySelector('.scroll');
+const input = document.querySelector('input');
+
+if (input && scroll) {
+  input.addEventListener('focus', () => {
+    setTimeout(() => { scroll.scrollTop = scroll.scrollHeight; }, 500);
+    setTimeout(() => { scroll.scrollTop = scroll.scrollHeight; }, 800);
+    setTimeout(() => { scroll.scrollTop = scroll.scrollHeight; }, 1200);
+    setTimeout(() => { scroll.scrollTop = scroll.scrollHeight; }, 1800);
+    setTimeout(() => { scroll.scrollTop = scroll.scrollHeight; }, 2500);
+  });
+}
+```
+
 </script>
 
 </body>
