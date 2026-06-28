@@ -77,11 +77,6 @@ if not PERSONA and _persona_file:
         pass
 if not PERSONA:
     PERSONA = "你是对方的 AI 伴侣,在一个私密的一对一聊天里。说话自然、简短、有温度,像在用手机聊天,不要长篇大论。"
-    print(">>> PERSONA:", repr(PERSONA[:100]))
-    print(">>> CWD:", os.getcwd())
-print(">>> FILE DIR:", Path(__file__).resolve().parent)
-print(">>> PERSONA_FILE:", repr(_persona_file))
-print(">>> FILE EXISTS:", Path(_persona_file).exists())
 
 # 模型链:主模型 + 可选兜底(LLM_*_2 / _3)。任一返回 FALLBACK_CODES 就顺次切下一个。
 def _model_routes() -> list:
