@@ -5049,9 +5049,10 @@ document.body.insertAdjacentHTML('beforeend',
   '<button onclick="document.querySelector(\'.scroll\').scrollTop=document.querySelector(\'.scroll\').scrollHeight" style="position:fixed;top:10px;left:10px;z-index:99999;padding:12px;background:red;color:#fff;border:none;border-radius:8px;">滚到底</button>'
 );
 
+
 ```js
-if (window.visualViewport) {
-  const scroll = document.querySelector('.scroll');
+const scroll = document.querySelector('#scroll');
+```
   let lastH = window.visualViewport.height;
   
   window.visualViewport.addEventListener('resize', () => {
@@ -5070,20 +5071,18 @@ if (window.visualViewport) {
 }
 ```
 
- ```js
-const scroll = document.querySelector('.scroll');
-const input = document.querySelector('input');
+```js
+const scroll = document.querySelector('#scroll');
+const input = document.querySelector('textarea');
 
 if (input && scroll) {
   let timer = null;
   
   input.addEventListener('focus', () => {
-    // 持续滚到底，直到键盘不再动
     timer = setInterval(() => {
       scroll.scrollTop = scroll.scrollHeight;
     }, 50);
     
-    // 3秒后停止
     setTimeout(() => {
       clearInterval(timer);
     }, 3000);
